@@ -3,13 +3,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --border-color: #292929;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-jetbrains-mono);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,6 +22,26 @@
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-jetbrains-mono), monospace;
+  color: #292929;
+}
+.text-main {
+  color: #aaaaaa;
+  transition: color 0.3s ease;
+}
+.group:hover .text-main {
+  color: #f8f8f8;
+}
+.text-head {
+  color: #f8f8f8;
+}
+.text-second {
+  color: #808080;
+}
+.border-color {
+  border-color: var(--border-color);
+  transition: border-color 0.3s ease;
+}
+.group:hover.border-color {
+  border-color: #dcdcdf;
 }
