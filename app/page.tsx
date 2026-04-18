@@ -1,32 +1,49 @@
-import { PhotoProfile } from "./components/photoprofile";
-import Naming from "./components/naming";
-import OtherLink from "./components/otherlink";
-import Footer from "./components/footer";
+import { profile } from "@/lib/content";
+import ReportHeader from "./components/ReportHeader";
+import ReportField from "./components/ReportField";
+import SectionDivider from "./components/SectionDivider";
+import Redacted from "./components/Redacted";
+import SocialLink from "./components/SocialLink";
+import Stamp from "./components/Stamp";
 
 export default function Home() {
+  const dateStr = new Date().toISOString().split('T')[0];
+
   return (
-    <div className="flex min-h-screen items-center justify-center font-mono bg-[#11111]">
-      <main className="flex w-full max-w-3xl flex-col border-color border sm:items-start">
-        <section className="flex w-full border-b border-color px-6 py-2 items-center space-x-1.5">
-          <h1 className="uppercase font-semibold text-main">About</h1>
-          <span className="text-sm italic text-[#808080]">who am i</span>
-        </section>
-        <section className="flex border-b border-color flex-col md:flex-row px-6 py-2 justify-center md:justify-between">
-          <PhotoProfile />
-          <Naming />
-        </section>
-        <section className="flex w-full border-b border-color px-6 py-2 items-center space-x-1.5">
-          <h1 className="uppercase font-semibold text-main">Link</h1>
-          <span className="text-sm italic text-second">
-            where am i on the internet
-          </span>
-        </section>
-        <section className="flex w-full border-b border-color flex-col md:flex-row px-6 py-4 justify-center md:justify-between">
-          <OtherLink />
-        </section>
-        {/* <Wavy /> */}
-        <Footer />
+    <div className="flex min-h-[100dvh] justify-center px-5 py-6 sm:px-10 sm:py-12">
+      <main className="w-full max-w-[680px]">
+        <ReportHeader dept="RESEARCH DEPARTMENT" caseFile={profile.caseFile} date={dateStr} />
+        
+        <h1 className="text-[20px] uppercase font-bold tracking-widest mb-8 border-b-2 border-double border-[var(--color-border)] pb-2 inline-block">Incident Report — Subject Profile</h1>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-1 mb-8">
+          <ReportField label="TYPE" value="Personal" />
+          <ReportField label="STATUS" value={<span className="font-bold">[{profile.status}]</span>} />
+          <ReportField label="ID" value={profile.handle} />
+          <ReportField label="SINCE" value={`[${profile.since}]`} />
+          <ReportField label="NAME" value={<Redacted length={profile.name.length} />} />
+          <ReportField label="LOCATION" value={`[${profile.location}]`} />
+        </div>
+        
+        <SectionDivider number={1} title="DESCRIPTION" />
+        <div className="text-[14px] leading-loose max-w-[550px] mb-8 font-medium">
+          <p>{profile.bio}</p>
+        </div>
+
+        <SectionDivider number={2} title="ASSOCIATED FILES" />
+        <div className="flex flex-col mb-16 w-full">
+          {profile.links.map((link, idx) => (
+            <SocialLink key={idx} label={link.label} url={link.url} />
+          ))}
+        </div>
+
+        <div className="mt-20 flex items-center justify-between border-t border-b border-[var(--color-border)] py-4 relative">
+          <Redacted length={24} />
+          <Stamp text="CLASSIFIED" className="absolute right-4 -top-8 bg-[var(--color-paper)]" />
+        </div>
+
       </main>
     </div>
   );
 }
+

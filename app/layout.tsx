@@ -8,8 +8,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "UKI",
-  description: "I am a Communication student who has an interest in coffee...",
+  title: "UQI Profile",
+  description: "Incident Report - Subject Profile",
 };
 
 export default function RootLayout({
@@ -19,7 +19,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${jetbrainsMono.variable} antialiased`}>
+      <body className={`${jetbrainsMono.variable} antialiased font-mono`}>
+        <div className="noise-overlay"></div>
         {children}
       </body>
     </html>

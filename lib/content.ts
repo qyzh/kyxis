@@ -1,0 +1,20 @@
+export const profile = {
+  caseFile: 'SQR-1499',
+  name: 'Syauqi Ashadullah',
+  handle: '@qyzh',
+  location: 'Sorowako, Indonesia',
+  since: '1999',
+  status: 'ACTIVE',
+  bio: 'Communication student who has an interest in coffee & DotA.',
+  links: [
+    { label: 'X', url: 'https://x.com/asetdunia' },
+    { label: 'INSTAGRAM', url: 'https://www.instagram.com/syauqashdllh/' },
+    { label: 'UNSPLASH', url: 'https://unsplash.com/id/@syauqashdllh' },
+    { label: 'GITHUB', url: 'https://github.com/qyzh' },
+    { label: 'STRAVA', url: 'https://www.strava.com/athletes/108607661' },
+    { label: 'STEAM', url: 'https://steamcommunity.com/id/qyourbae' },
+    { label: 'DIR-DIARE', url: 'https://dir.kyxis.my.id/' },
+    { label: 'My Bookshelf', url: 'https://buku.kyxis.my.id/' },
+    { label: 'APPLE MUSIC', url: 'https://music.apple.com/id/playlist/mentality-cooldown/pl.u-RRbVvlWTmpAgVG6' },
+  ],
+};
