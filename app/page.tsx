@@ -11,10 +11,29 @@ export default function Home() {
 
   return (
     <div className="flex min-h-[100dvh] justify-center px-5 py-6 sm:px-10 sm:py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: "Syauqi Ashadullah",
+            alternateName: "@qyzh",
+            url: "https://kyxis.my.id",
+            sameAs: [
+              "https://github.com/qyzh",
+              "https://x.com/asetdunia",
+              "https://www.instagram.com/syauqashdllh/",
+              "https://unsplash.com/id/@syauqashdllh",
+            ],
+          }),
+        }}
+      />
       <main className="w-full max-w-[680px]">
         <ReportHeader dept="RESEARCH DEPARTMENT" caseFile={profile.caseFile} date={dateStr} />
         
-        <h1 className="text-[20px] uppercase font-bold tracking-widest mb-8 border-b-2 border-double border-[var(--color-border)] pb-2 inline-block">Incident Report — Subject Profile</h1>
+        <h1 className="sr-only">Syauqi Ashadullah</h1>
+        <p className="text-[20px] uppercase font-bold tracking-widest mb-8 border-b-2 border-double border-[var(--color-border)] pb-2 inline-block">Incident Report — Subject Profile</p>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-1 mb-8">
           <ReportField label="TYPE" value="Personal" />
