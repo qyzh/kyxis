@@ -39,6 +39,9 @@ SEO_AUDIT.md
 # vercel
 .vercel
 
+# docs/
+docs/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
