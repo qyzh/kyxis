@@ -8,6 +8,7 @@
   --color-ink-faint:   #555555;   /* Labels, metadata - darkened for contrast */
   --color-border:      #050505;   /* Form field borders */
   --color-redact:      #111111;   /* Redaction fill */
+  --color-stamp:       #9e1b1b;   /* CLASSIFIED stamp red */
 }
 
 @theme inline {
@@ -17,6 +18,7 @@
   --color-ink-faint: var(--color-ink-faint);
   --color-border: var(--color-border);
   --color-redact: var(--color-redact);
+  --color-stamp: var(--color-stamp);
   /* Map Tailwind's font-mono utility directly to the Next.js injected var */
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
@@ -30,7 +32,6 @@ body {
 
 /* Base resets & utilities for Dossier theme */
 .stamp {
-  font-family: var(--font-doc);
   font-weight: bold;
   border: 2px solid var(--color-stamp);
   color: var(--color-stamp);
