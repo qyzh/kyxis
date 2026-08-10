@@ -32,11 +32,28 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+
+# AGENTS 
 AGENTS.md
+CLAUDE.md
+SEO_AUDIT.md
+.agents/
+.gemini/
+GEMINI.md
+
+.github/
+
+# graphify
+graphify-out/
+graphify-bridge-plan.md
+graphify-bridge-report.md
 
 
 # vercel
 .vercel
+
+# docs/
+docs/
 
 # typescript
 *.tsbuildinfo

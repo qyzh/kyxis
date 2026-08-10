@@ -5,27 +5,22 @@
   --color-bg:          #f0ede6;   /* Aged paper */
   --color-surface:     #e8e4db;   /* Slightly darker paper for inset fields */
   --color-ink:         #050505;   /* Primary text - much darker ink */
-  --color-ink-muted:   #333333;   /* Secondary text */
   --color-ink-faint:   #555555;   /* Labels, metadata - darkened for contrast */
   --color-border:      #050505;   /* Form field borders */
   --color-redact:      #111111;   /* Redaction fill */
-  --color-stamp:       #050505;   /* Stamp text */
-
-  --font-doc: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --color-stamp:       #9e1b1b;   /* CLASSIFIED stamp red */
 }
 
 @theme inline {
   --color-paper: var(--color-bg);
   --color-surface: var(--color-surface);
   --color-ink: var(--color-ink);
-  --color-ink-muted: var(--color-ink-muted);
   --color-ink-faint: var(--color-ink-faint);
   --color-border: var(--color-border);
   --color-redact: var(--color-redact);
   --color-stamp: var(--color-stamp);
   /* Map Tailwind's font-mono utility directly to the Next.js injected var */
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --font-sans: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 body {
@@ -37,7 +32,6 @@ body {
 
 /* Base resets & utilities for Dossier theme */
 .stamp {
-  font-family: var(--font-doc);
   font-weight: bold;
   border: 2px solid var(--color-stamp);
   color: var(--color-stamp);

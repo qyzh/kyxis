@@ -8,8 +8,19 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "UQI Profile",
-  description: "Incident Report - Subject Profile",
+  title: "Syauqi Ashadullah — @qyzh",
+  description: "Syauqi Ashadullah (@qyzh) — communication student from Sorowako, Indonesia. Into coffee, DotA, photography.",
+  openGraph: {
+    title: "Syauqi Ashadullah",
+    description: "Syauqi Ashadullah (@qyzh) — communication student from Sorowako, Indonesia.",
+    url: "https://kyxis.my.id",
+    type: "profile",
+  },
+  twitter: {
+    card: "summary",
+    title: "Syauqi Ashadullah",
+    creator: "@asetdunia",
+  },
 };
 
 export default function RootLayout({
