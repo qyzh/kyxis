@@ -18,7 +18,6 @@
   --color-ink-faint: var(--color-ink-faint);
   --color-border: var(--color-border);
   --color-redact: var(--color-redact);
-  --color-stamp: var(--color-stamp);
   /* Map Tailwind's font-mono utility directly to the Next.js injected var */
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
