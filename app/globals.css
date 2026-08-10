@@ -8,6 +8,7 @@
   --color-ink-faint:   #555555;   /* Labels, metadata - darkened for contrast */
   --color-border:      #050505;   /* Form field borders */
   --color-redact:      #111111;   /* Redaction fill */
+  --color-stamp:       #9e1b1b;   /* CLASSIFIED stamp red */
 }
 
 @theme inline {
@@ -30,7 +31,6 @@ body {
 
 /* Base resets & utilities for Dossier theme */
 .stamp {
-  font-family: var(--font-doc);
   font-weight: bold;
   border: 2px solid var(--color-stamp);
   color: var(--color-stamp);
