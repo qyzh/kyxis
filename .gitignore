@@ -46,6 +46,7 @@ GEMINI.md
 
 # graphify
 graphify-out/
+.graphify_semantic.json
 graphify-bridge-plan.md
 graphify-bridge-report.md
 
