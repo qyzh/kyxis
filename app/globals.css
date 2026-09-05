@@ -52,3 +52,56 @@ body {
   opacity: 0.08; /* Reduced aggressively from 0.2 down to 0.08 for visibility */
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
+
+/* ── Page-load reveal ────────────────────────────────────────── */
+@keyframes kf-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes kf-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes kf-wipe {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes kf-stamp-in {
+  0%   { opacity: 0; transform: rotate(-12deg) scale(1.9); }
+  55%  { opacity: 1; }
+  100% { opacity: 1; transform: rotate(-3deg) scale(1); }
+}
+
+/* base reveal — y shift + fade */
+.reveal-up {
+  opacity: 0;
+  animation: kf-fade-up 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 72ms + var(--base-delay, 0ms));
+  will-change: transform, opacity;
+}
+.reveal-fade {
+  opacity: 0;
+  animation: kf-fade-in 420ms ease-out both;
+  animation-delay: var(--base-delay, 0ms);
+}
+.reveal-line {
+  transform-origin: left center;
+  animation: kf-wipe 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--base-delay, 0ms);
+}
+.reveal-stamp {
+  opacity: 0;
+  animation: kf-stamp-in 560ms cubic-bezier(0.34, 1.32, 0.64, 1) both;
+  animation-delay: 860ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up,
+  .reveal-fade,
+  .reveal-line,
+  .reveal-stamp {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

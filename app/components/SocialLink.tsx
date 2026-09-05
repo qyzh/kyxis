@@ -1,11 +1,12 @@
-export default function SocialLink({ label, url }: { label: string, url: string }) {
+export default function SocialLink({ label, url, index = 0 }: { label: string, url: string, index?: number }) {
   return (
     <a 
       href={url} 
       target="_blank" 
       rel="noopener noreferrer" 
       aria-label={`Open ${label} profile`}
-      className="flex items-end w-full hover:underline hover:decoration-[var(--color-ink)] min-h-[44px] py-1 cursor-pointer group"
+      style={{ ["--i" as string]: index, ["--base-delay" as string]: "520ms" } as React.CSSProperties}
+      className="reveal-up flex items-end w-full hover:underline hover:decoration-[var(--color-ink)] min-h-[44px] py-1 cursor-pointer group"
     >
       <span className="text-[14px] font-bold uppercase whitespace-nowrap text-[var(--color-ink)]">- {label}</span>
       <span className="flex-grow border-b border-dotted border-[var(--color-ink-faint)] mx-3 mb-[6px] opacity-60"></span>
