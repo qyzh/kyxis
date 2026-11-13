@@ -13,8 +13,8 @@ export const profile = {
     { label: 'GITHUB', url: 'https://github.com/qyzh' },
     { label: 'STRAVA', url: 'https://www.strava.com/athletes/108607661' },
     { label: 'STEAM', url: 'https://steamcommunity.com/id/qyourbae' },
-    { label: 'DIR-DIARE', url: 'https://dir.kyxis.my.id/' },
-    { label: 'My Bookshelf', url: 'https://buku.kyxis.my.id/' },
+    { label: 'DIR-DIARE', url: 'https://dir.thisnot.my.id/' },
+    { label: 'My Bookshelf', url: 'https://buku.thisnot.my.id/' },
     { label: 'APPLE MUSIC', url: 'https://music.apple.com/id/playlist/mentality-cooldown/pl.u-RRbVvlWTmpAgVG6' },
   ],
 };

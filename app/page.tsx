@@ -16,7 +16,7 @@ export default function Home() {
             "@type": "Person",
             name: "Syauqi Ashadullah",
             alternateName: "@qyzh",
-            url: "https://kyxis.my.id",
+            url: "https://thisnot.my.id",
             sameAs: profile.links.map((l) => l.url),
           }),
         }}
