@@ -23,17 +23,17 @@ const silkscreen = Silkscreen({
 });
 
 export const metadata: Metadata = {
-  title: "Syauqi Ashadullah — @qyzh",
+  title: "THIS NOT MY ID",
   description: "thisnot.my.id — select a chapter: dir-diare, ukbook, personal-d2.",
   openGraph: {
-    title: "Syauqi Ashadullah",
+    title: "THIS NOT MY ID",
     description: "thisnot.my.id — select a chapter: dir-diare, ukbook, personal-d2.",
     url: "https://thisnot.my.id",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Syauqi Ashadullah",
+    title: "THIS NOT MY ID",
     creator: "@asetdunia",
   },
 };
