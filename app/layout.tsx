@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Syauqi Ashadullah",
     description: "Syauqi Ashadullah (@qyzh) — communication student from Sorowako, Indonesia.",
-    url: "https://kyxis.my.id",
+    url: "https://thisnot.my.id",
     type: "profile",
   },
   twitter: {
