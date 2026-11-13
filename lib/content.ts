@@ -1,20 +1,26 @@
-export const profile = {
-  caseFile: 'SQR-1499',
-  name: 'Syauqi Ashadullah',
-  handle: '@qyzh',
-  location: 'Sorowako, Indonesia',
-  since: '1999',
-  status: 'ACTIVE',
-  bio: 'Communication student who has an interest in coffee & DotA.',
-  links: [
-    { label: 'X', url: 'https://x.com/asetdunia' },
-    { label: 'INSTAGRAM', url: 'https://www.instagram.com/syauqashdllh/' },
-    { label: 'UNSPLASH', url: 'https://unsplash.com/id/@syauqashdllh' },
-    { label: 'GITHUB', url: 'https://github.com/qyzh' },
-    { label: 'STRAVA', url: 'https://www.strava.com/athletes/108607661' },
-    { label: 'STEAM', url: 'https://steamcommunity.com/id/qyourbae' },
-    { label: 'DIR-DIARE', url: 'https://dir.thisnot.my.id/' },
-    { label: 'My Bookshelf', url: 'https://buku.thisnot.my.id/' },
-    { label: 'APPLE MUSIC', url: 'https://music.apple.com/id/playlist/mentality-cooldown/pl.u-RRbVvlWTmpAgVG6' },
-  ],
+/** Each theme restyles the whole page: background scene, colours and panel. */
+export type ThemeId = "space" | "library" | "d2";
+
+export type Chapter = {
+  title: string;
+  url: string;
+  note: string;
+  theme: ThemeId;
+};
+
+/** Per-theme copy (card ornament). Colours live in app/globals.css, scenes in app/components/scenes/. */
+export const themes: Record<ThemeId, { ornament: string }> = {
+  space: { ornament: "* .  +   ." },
+  library: { ornament: "— ex libris —" },
+  d2: { ornament: "GG · WP" },
+};
+
+export const site = {
+  name: "thisnot.my.id",
+  // Add new chapters to the end of this list; numbering is automatic.
+  chapters: [
+    { title: "DIR-DIARE", url: "https://dir.thisnot.my.id", note: "diary", theme: "space" },
+    { title: "UKBOOK", url: "https://buku.thisnot.my.id", note: "bookshelf", theme: "library" },
+    { title: "PERSONAL-D2", url: "https://d2.thisnot.my.id", note: "dota 2 stats", theme: "d2" },
+  ] satisfies Chapter[] as Chapter[],
 };
