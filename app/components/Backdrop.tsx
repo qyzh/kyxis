@@ -81,6 +81,19 @@ export default function Backdrop({
     let cur = target.current;
     let tr: { from: ThemeId; to: ThemeId; start: number; swapped: boolean } | null = null;
     let raf = 0, lastScene = 0;
+    let tx = 0, ty = 0, px = 0, py = 0;
+
+    function onPointerMove(e: PointerEvent) {
+      if (e.pointerType !== "mouse") return;
+      if (window.innerWidth === 0 || window.innerHeight === 0) return;
+      tx = (e.clientX / window.innerWidth) * 2 - 1;
+      ty = (e.clientY / window.innerHeight) * 2 - 1;
+    }
+
+    function onPointerLeave() {
+      tx = 0;
+      ty = 0;
+    }
 
     // Vector scenes are transparent between their marks, so always start from a
     // cleared frame (the page background shows through) rather than painting over the last.
@@ -130,6 +143,12 @@ export default function Backdrop({
 
     function frame(now: number) {
       raf = requestAnimationFrame(frame);
+
+      // Smoothly damp pointer parallax without touching the pixel buffer
+      px += (tx - px) * 0.06;
+      py += (ty - py) * 0.06;
+      canvas!.style.transform = `translate3d(${(-px * 12).toFixed(2)}px, ${(-py * 8).toFixed(2)}px, 0) scale(1.04)`;
+
       const due = now - lastScene >= 1000 / FPS;
       if (due) {
         lastScene = now;
@@ -167,7 +186,11 @@ export default function Backdrop({
 
     setup();
     kick.current = () => start(target.current);
-    if (!reduceMotion) raf = requestAnimationFrame(frame);
+    if (!reduceMotion) {
+      raf = requestAnimationFrame(frame);
+      window.addEventListener("pointermove", onPointerMove, { passive: true });
+      window.addEventListener("pointerleave", onPointerLeave);
+    }
     window.addEventListener("resize", onResize);
 
     return () => {
@@ -175,6 +198,9 @@ export default function Backdrop({
       clearTimeout(resizeTimer);
       finish();
       kick.current = () => {};
+      canvas.style.removeProperty("transform");
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerleave", onPointerLeave);
       window.removeEventListener("resize", onResize);
     };
   }, [scenes]);

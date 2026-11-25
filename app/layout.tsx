@@ -1,7 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { EB_Garamond, JetBrains_Mono, Silkscreen } from "next/font/google";
 import { site } from "@/lib/content";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  viewportFit: "cover",
+};
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",

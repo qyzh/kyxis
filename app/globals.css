@@ -93,6 +93,7 @@ body {
   background-color: var(--bg);
   color: var(--ink);
   font-family: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -103,6 +104,8 @@ body {
 /* ── Background scenes ───────────────────────────────────────── */
 .backdrop {
   image-rendering: pixelated;
+  will-change: transform;
+  transform: scale(1.04);
 }
 
 /* Glitch transition (Backdrop sets data-glitch, --gk intensity and --gx jitter on <html>).
@@ -166,10 +169,53 @@ body {
   :root[data-theme="d2"] .hero { font-size: 40px; }
 }
 
+/* ── Per-card autonomous themes ──────────────────────────────── */
+[data-card-theme="space"] {
+  --card-bg: #070708;
+  --card-ink: #ededed;
+  --card-faint: #8c8c8c;
+  --card-line: #4d4d4d;
+  --card-shadow: #4d4d4d;
+  --card-select-bg: #ededed;
+  --card-select-ink: #050505;
+  --card-accent: #ffffff;
+  --card-ruling: 0;
+  --card-font: var(--font-jetbrains-mono);
+  --card-glow: rgb(255 255 255 / 0.14);
+}
+
+[data-card-theme="library"] {
+  --card-bg: #efe2c4;
+  --card-ink: #2a1a10;
+  --card-faint: #7a5c3e;
+  --card-line: #a9845a;
+  --card-shadow: #8b6840;
+  --card-select-bg: #2a1a10;
+  --card-select-ink: #efe2c4;
+  --card-accent: #b2342c;
+  --card-ruling: 1;
+  --card-font: var(--font-garamond);
+  --card-glow: rgb(232 169 72 / 0.22);
+}
+
+[data-card-theme="d2"] {
+  --card-bg: #141415;
+  --card-ink: #fff1e8;
+  --card-faint: #a19993;
+  --card-line: #3b3937;
+  --card-shadow: #09090a;
+  --card-select-bg: #00e436;
+  --card-select-ink: #121212;
+  --card-accent: #00e436;
+  --card-ruling: 0;
+  --card-font: var(--font-silkscreen);
+  --card-glow: rgb(0 228 54 / 0.25);
+}
+
 /* ── Chapter carousel ────────────────────────────────────────── */
 .carousel {
-  --card-w: min(360px, 76vw);
-  --gap: 20px;
+  --card-w: min(390px, 84vw);
+  --gap: 16px;
   touch-action: pan-y;
   user-select: none;
   cursor: grab;
@@ -191,8 +237,9 @@ body {
 
 .slide {
   flex: 0 0 var(--card-w);
-  height: 260px;
-  filter: brightness(0.45) saturate(0.6);
+  height: 274px;
+  perspective: 900px;
+  filter: brightness(0.46) saturate(0.65);
   transform: scale(0.86);
   transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1), filter 520ms ease;
 }
@@ -201,77 +248,163 @@ body {
   transform: none;
 }
 
+@media (min-width: 640px) {
+  .carousel {
+    --gap: 22px;
+  }
+  .slide {
+    height: 296px;
+  }
+}
+
 .panel {
   position: relative;
-  background: var(--panel-bg);
-  color: var(--panel-ink);
-  border: 1px solid var(--panel-line);
-  box-shadow: 4px 4px 0 0 var(--panel-shadow);
+  overflow: hidden;
+  background: var(--card-bg, var(--panel-bg));
+  color: var(--card-ink, var(--panel-ink));
+  border: 1px solid var(--card-line, var(--panel-line));
+  box-shadow: 4px 4px 0 0 var(--card-shadow, var(--panel-shadow));
 }
-/* Library index card: ruled lines and a red header rule, faded in via --card. */
+
+/* Library index card: ruled lines and a red header rule, faded in via --card-ruling. */
 .panel::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: var(--card);
+  opacity: var(--card-ruling, var(--card));
   background:
-    linear-gradient(to bottom, transparent 0 46px, rgb(178 52 44 / 0.55) 46px 47px, transparent 47px),
-    repeating-linear-gradient(to bottom, transparent 0 23px, rgb(110 140 170 / 0.22) 23px 24px);
+    linear-gradient(to bottom, transparent 0 48px, rgb(178 52 44 / 0.55) 48px 49px, transparent 49px),
+    repeating-linear-gradient(to bottom, transparent 0 24px, rgb(110 140 170 / 0.22) 24px 25px);
+}
+
+/* Subtle pointer spotlight sheen on active card */
+.panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    var(--card-glow, rgb(255 255 255 / 0.14)),
+    transparent 70%
+  );
+  transition: opacity 220ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .slide[data-active="true"] .card:hover::after {
+    opacity: 1;
+  }
 }
 
 .card {
   outline: none;
-  transition: box-shadow 200ms ease, translate 200ms ease;
+  -webkit-tap-highlight-color: transparent;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: box-shadow 220ms ease, translate 220ms ease, transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.slide[data-active="true"] .card:hover {
-  translate: -2px -2px;
-  box-shadow: 6px 6px 0 0 var(--panel-shadow);
+
+.slide[data-active="true"] .card {
+  box-shadow:
+    4px 4px 0 0 var(--card-shadow, var(--panel-shadow)),
+    0 16px 38px -12px var(--card-glow, transparent);
 }
+
+.slide[data-active="true"] .card:active {
+  translate: 1px 1px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .slide[data-active="true"] .card:hover {
+    translate: -2px -2px;
+    box-shadow:
+      6px 6px 0 0 var(--card-shadow, var(--panel-shadow)),
+      0 20px 44px -10px var(--card-glow, transparent);
+  }
+}
+
 .card:focus-visible {
-  outline: 1px dashed var(--accent);
+  outline: 1px dashed var(--card-accent, var(--accent));
   outline-offset: 4px;
 }
 
+/* Theme-specific card materiality */
+[data-card-theme="library"] .card-inner-frame {
+  border: 1px solid rgb(169 132 90 / 0.35);
+}
+
+.card-hole {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  border: 1px solid #a9845a;
+  background: #120b07;
+  box-shadow: inset 1px 1px 2px rgb(0 0 0 / 0.55);
+}
+
+.d2-top-stripe {
+  height: 3px;
+  background: linear-gradient(90deg, #00e436 0 50%, #ff004d 50% 100%);
+}
+
 .card-title {
-  font-family: var(--hero-font), ui-monospace, monospace;
+  font-family: var(--card-font, var(--hero-font)), ui-monospace, monospace;
   font-size: 24px;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.04;
   letter-spacing: 0.12em;
 }
-:root[data-theme="library"] .card-title {
-  font-size: 34px;
+[data-card-theme="library"] .card-title {
+  font-size: 36px;
   font-style: italic;
   font-weight: 500;
   letter-spacing: 0;
 }
-:root[data-theme="d2"] .card-title {
+[data-card-theme="d2"] .card-title {
   font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.06em;
 }
 @media (min-width: 640px) {
   .card-title { font-size: 30px; }
-  :root[data-theme="library"] .card-title { font-size: 42px; }
-  :root[data-theme="d2"] .card-title { font-size: 24px; }
+  [data-card-theme="library"] .card-title { font-size: 42px; }
+  [data-card-theme="d2"] .card-title { font-size: 24px; }
 }
 
 .enter {
-  background: var(--select-bg);
-  color: var(--select-ink);
+  background: var(--card-select-bg, var(--select-bg));
+  color: var(--card-select-ink, var(--select-ink));
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .slide[data-active="true"] .card:hover .enter {
+    transform: translateX(2px);
+  }
+}
+
+/* ── Navigation controls & HUD ───────────────────────────────── */
+.hud-top {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+.hud-bottom {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
 }
 
 .arrow {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   font-size: 12px;
   border: 1px solid currentColor;
   color: var(--ink-faint);
   cursor: pointer;
-  transition: color 150ms ease, background-color 150ms ease;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
 }
 .arrow:hover,
 .arrow:focus-visible {
@@ -279,6 +412,52 @@ body {
   background: var(--ink);
   border-color: var(--ink);
   outline: none;
+}
+
+.dot-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 44px;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--ink-faint);
+  -webkit-tap-highlight-color: transparent;
+  transition: color 180ms ease, transform 180ms ease;
+}
+.dot-btn:hover,
+.dot-btn:focus-visible {
+  color: var(--ink);
+  outline: none;
+}
+.dot-btn[data-active="true"] {
+  color: var(--accent);
+}
+
+@media (min-width: 640px) {
+  .arrow {
+    width: 36px;
+    height: 36px;
+  }
+  .dot-btn {
+    min-width: 28px;
+    min-height: 32px;
+  }
+}
+
+.kbd-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  font-size: 10px;
+  line-height: 1;
+  border: 1px solid color-mix(in srgb, var(--ink-faint) 55%, transparent);
+  color: var(--ink);
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
 }
 
 .cursor-mark {
@@ -315,8 +494,15 @@ body {
   :root,
   .track,
   .slide,
-  .card {
+  .card,
+  .panel::after {
     transition: none;
+  }
+  .card {
+    transform: none !important;
+  }
+  .backdrop {
+    transform: none !important;
   }
   .reveal-up,
   .reveal-fade,
